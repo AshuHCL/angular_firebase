@@ -1,7 +1,7 @@
 'use strict';
 
-angularFirebaseApp.controller('channelsCtrl', function($state, Auth, Users, profile, channels){
-    var channelsCtrl = this;
+angularFirebaseApp.controller('channelsCtrl', ['$scope', '$state', 'Auth', 'Users', 'profile', 'channels', 
+	function($scope, $state, Auth, Users, profile, channels){
     $scope.profile = profile;
 	$scope.channels = channels;
 	$scope.getDisplayName = Users.getDisplayName;
@@ -12,4 +12,4 @@ angularFirebaseApp.controller('channelsCtrl', function($state, Auth, Users, prof
 	    $state.go('home');
 	  });
 	};
-});
+}]);

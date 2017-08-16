@@ -21,7 +21,16 @@ angularFirebaseApp.config(function ($stateProvider, $urlRouterProvider) {
       .state('home', {
         url: '/',
         controller: 'mainCtrl as mainCtrl',
-        templateUrl: 'views/main.html'
+        templateUrl: 'views/main.html',
+        resolve: {
+          requireNoAuth: function($state, Auth){
+            return Auth.$requireSignIn().then(function(auth){
+              $state.go('channels');
+            }, function(error){
+              return;
+            });
+          }
+        }
       })
       .state('login', {
         url: '/login',
@@ -70,33 +79,24 @@ angularFirebaseApp.config(function ($stateProvider, $urlRouterProvider) {
       })
       .state('channels', {
         url: '/channels',
+        controller: 'channelsCtrl as channelsCtrl',
+        templateUrl: 'views/channels.html',
         resolve: {
-          channels: function (Channels){
-            return Channels.$loaded();
-          },
           profile: function ($state, Auth, Users){
             return Auth.$requireSignIn().then(function(auth){
               return Users.getProfile(auth.uid).$loaded().then(function (profile){
                 if(profile.displayName){
                   return profile;
                 } else {
-                  $state.go('profile');
+                  $state.go('users');
                 }
               });
             }, function(error){
               $state.go('home');
             });
-          }
-        },
-        controller: 'channelsCtrl as channelsCtrl',
-        templateUrl: 'views/channels.html',
-        resolve: {
-          requireNoAuth: function($state, Auth){
-            return Auth.$requireSignIn().then(function(auth){
-              $state.go('channels');
-            }, function(error){
-              return;
-            });
+          },
+          channels: function (Channels){
+            return Channels.$loaded();
           }
         }
       });
