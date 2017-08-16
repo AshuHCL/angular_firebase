@@ -1,6 +1,6 @@
 'use strict';
 
-angularFirebaseApp.controller('mainCtrl', ['$scope','mainSrv', function ($scope, mainSrv) {
+angularFirebaseApp.controller('mainCtrl', ['$scope','Auth', function ($scope, Auth) {
     
     $scope.currentLocation = "We are currently on Main Page";
 

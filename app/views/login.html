@@ -4,9 +4,9 @@
             <h1 class="text-center login-title">Sign in to continue to Firebase</h1>
             <div class="account-wall">
                 <img class="profile-img"  ng-src="http://www.i-programmer.info/images/stories/News/2016/May/B/firebase.jpg">
-                <form class="form-signin">
-                    <input type="text" class="form-control" placeholder="Email" required autofocus>
-                    <input type="password" class="form-control" placeholder="Password" required>
+                <form class="form-signin" ng-submit="login()">
+                    <input type="text" class="form-control" placeholder="Email" ng-model="user.email" required autofocus>
+                    <input type="password" class="form-control" placeholder="Password" ng-model="user.password" required>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">
                         Sign in
                     </button>
